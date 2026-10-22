@@ -1,10 +1,15 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Marija's Halloween Pre-Party</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Creepster&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap">
 <style>
+html,body{margin:0}
 /* Layout: a sticky night scene you scroll "into" (the camera dives through the front door),
    then the candlelit interior holds the invitation. Single dark world by design. */
 :root{
@@ -28,13 +33,13 @@ html,body{overflow-x:clip}
 body{background:var(--void);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.5;-webkit-tap-highlight-color:transparent}
 
 /* ---------- Scroll scene ---------- */
-#scene{position:relative;height:350svh}
-.stage{position:sticky;top:0;height:100svh;overflow:hidden;
+#scene{position:relative;height:270svh}
+.stage{position:sticky;top:0;z-index:3;height:100svh;overflow:hidden;
   background:radial-gradient(120% 70% at 70% 8%, var(--dusk) 0%, var(--night) 45%, var(--void) 100%)}
 .layer{position:absolute;inset:0;pointer-events:none;will-change:transform,opacity}
 #stars span{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--moon);opacity:.7;animation:twinkle 3s ease-in-out infinite}
 @keyframes twinkle{50%{opacity:.15}}
-.moon{position:absolute;top:7svh;right:9vw;width:min(34vw,170px);aspect-ratio:1;border-radius:50%;
+.moon{position:absolute;top:27svh;right:5vw;width:min(26vw,130px);aspect-ratio:1;border-radius:50%;
   background:radial-gradient(circle at 38% 35%, #fffbe8 0%, var(--moon) 45%, #d9cba0 100%);
   box-shadow:0 0 60px 18px rgba(244,236,208,.25),0 0 160px 60px rgba(185,166,224,.18)}
 .moon::before,.moon::after{content:"";position:absolute;border-radius:50%;background:rgba(160,140,100,.25)}
@@ -88,20 +93,35 @@ body{background:var(--void);color:var(--ink);font-family:var(--font-body);font-s
 
 .intro{position:absolute;inset:auto 0 auto 0;top:max(18px, calc(env(safe-area-inset-top,0px) + 12px));text-align:center;
   padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
-.intro .when{margin:.5em 0 0;font-size:17px;font-weight:600;color:var(--ink)}
-.intro h1{margin:.15em 0 0;font-family:var(--font-display);font-weight:400;font-size:clamp(44px,13vw,76px);line-height:.95;
+.intro .when{display:inline-block;margin:.7em 0 0;font-size:17px;font-weight:700;color:var(--ink);
+  background:rgba(10,6,20,.72);border:1px solid rgba(255,179,71,.45);border-radius:999px;padding:7px 16px;
+  animation:rise .9s .35s cubic-bezier(.2,.8,.2,1) both}
+.intro h1{margin:.15em 0 0;animation:rise 1s cubic-bezier(.2,.8,.2,1) both;font-family:var(--font-display);font-weight:400;font-size:clamp(44px,13vw,76px);line-height:.95;
   color:var(--pumpkin);text-shadow:0 0 18px rgba(255,122,26,.55),0 3px 0 #2a0f05;text-wrap:balance}
 .scroll-hint{position:absolute;left:50%;bottom:max(18px, calc(env(safe-area-inset-bottom,0px) + 10px));translate:-50% 0;
   display:flex;flex-direction:column;align-items:center;gap:4px;font-size:14px;font-weight:600;letter-spacing:.01em;color:var(--ink);
   background:rgba(10,6,20,.55);padding:8px 14px;border-radius:999px;backdrop-filter:blur(4px);white-space:nowrap}
 .scroll-hint i{display:block;width:10px;height:10px;border-right:2px solid var(--ember);border-bottom:2px solid var(--ember);rotate:45deg;animation:nudge 1.2s ease-in-out infinite}
 @keyframes nudge{50%{translate:0 5px}}
+@keyframes rise{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+
+/* windows flicker like candlelight; occasional lightning over the sky */
+.win{animation:winflicker 5s ease-in-out infinite}
+.win.d1{animation-delay:-1.7s;animation-duration:6.3s}
+.win.d2{animation-delay:-3.1s;animation-duration:4.4s}
+@keyframes winflicker{0%,100%{opacity:1}40%{opacity:.88}46%{opacity:.55}48%{opacity:.95}70%{opacity:.8}}
+.lightning{position:absolute;inset:0;background:radial-gradient(90% 60% at 30% 10%, rgba(225,215,255,.55), rgba(225,215,255,0) 70%);opacity:0;animation:lightning 9s linear infinite 2.5s}
+@keyframes lightning{0%,90%,100%{opacity:0}91%{opacity:.9}92%{opacity:.1}93.5%{opacity:.6}96%{opacity:0}}
+
+/* interior pieces rise into place as they enter the screen (class added by script only) */
+.reveal{opacity:0;transform:translateY(32px) scale(.97);transition:opacity .7s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
 
 .spill{position:absolute;inset:0;background:radial-gradient(60% 45% at 50% 78%, rgba(255,179,71,.55), rgba(255,122,26,0) 70%);opacity:0}
 .flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 60%, #ffe2a8 0%, var(--ember) 40%, #8a3414 100%);opacity:0}
 
 /* ---------- Inside the house ---------- */
-.inside{position:relative;z-index:2;margin-top:-100svh;
+.inside{position:relative;z-index:1;margin-top:-100svh;
   background:var(--wall);
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
   padding-block:4svh 14svh}
@@ -140,15 +160,19 @@ body{background:var(--void);color:var(--ink);font-family:var(--font-body);font-s
 .signoff{text-align:center;font-family:var(--font-display);font-size:26px;letter-spacing:.04em;color:var(--mist);margin:0}
 
 @media (prefers-reduced-motion: reduce){
-  .bat,.bat svg,.fog,.ghost svg,#stars span,.candle::before,.scroll-hint i{animation:none}
+  .bat,.bat svg,.fog,.ghost svg,#stars span,.candle::before,.scroll-hint i,.win,.lightning,.intro h1,.intro .when{animation:none}
   .bat{display:none}
 }
 </style>
+</head>
+<body>
+
 
 <div id="scene">
   <div class="stage" aria-hidden="false">
     <div class="layer" id="sky">
       <div id="stars"></div>
+      <div class="lightning"></div>
       <div class="moon"></div>
       <div class="bat"><svg viewBox="0 0 32 16"><path d="M0 9Q6-1 12 5Q14 1 16 5Q18 1 20 5Q26-1 32 9Q26 7 22 11Q18 8 16 14Q14 8 10 11Q6 7 0 9Z"/></svg></div>
       <div class="bat"><svg viewBox="0 0 32 16"><path d="M0 9Q6-1 12 5Q14 1 16 5Q18 1 20 5Q26-1 32 9Q26 7 22 11Q18 8 16 14Q14 8 10 11Q6 7 0 9Z"/></svg></div>
@@ -199,12 +223,12 @@ body{background:var(--void);color:var(--ink);font-family:var(--font-body);font-s
         <polygon class="h-roof" points="62,206 150,118 158,116 254,198"/>
         <rect x="204" y="132" width="16" height="46" fill="#0d0717" transform="rotate(4 212 155)"/>
         <rect x="200" y="128" width="24" height="7" fill="#0d0717" transform="rotate(4 212 131)"/>
-        <circle class="win" cx="156" cy="168" r="13"/>
+        <circle class="win d1" cx="156" cy="168" r="13"/>
         <line class="win-bar" x1="143" y1="168" x2="169" y2="168"/>
         <line class="win-bar" x1="156" y1="155" x2="156" y2="181"/>
         <rect class="win" x="98" y="232" width="32" height="40" rx="3"/>
         <line class="win-bar" x1="114" y1="232" x2="114" y2="272"/><line class="win-bar" x1="98" y1="252" x2="130" y2="252"/>
-        <rect class="win" x="184" y="228" width="32" height="40" rx="3" transform="rotate(-3 200 248)"/>
+        <rect class="win d2" x="184" y="228" width="32" height="40" rx="3" transform="rotate(-3 200 248)"/>
         <line class="win-bar" x1="200" y1="228" x2="199" y2="268"/><line class="win-bar" x1="184" y1="249" x2="216" y2="247"/>
         <path class="h-trim" d="M76 210 L238 204"/>
         <!-- door -->
@@ -299,30 +323,40 @@ body{background:var(--void);color:var(--ink);font-family:var(--font-body);font-s
   const seg = (p,a,b) => clamp((p-a)/(b-a));
   const ease = t => t<.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2;
 
-  let ticking = false;
-  function render(){
-    ticking = false;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dark = $('dark'), stage = document.querySelector('.stage');
+  let target = 0, cur = 0, running = false;
+  function readTarget(){
     const total = scene.offsetHeight - window.innerHeight;
-    const p = clamp(-scene.getBoundingClientRect().top / Math.max(1,total));
+    target = clamp(-scene.getBoundingClientRect().top / Math.max(1,total));
+  }
+  // the scene eases toward the scroll position, so swipes glide instead of jumping
+  function loop(){
+    const d = target - cur;
+    cur = Math.abs(d) < .0004 ? target : cur + d * .14;
+    render(cur);
+    if (cur !== target) requestAnimationFrame(loop); else running = false;
+  }
+  function render(p){
 
     // approach, then dive through the door
-    const approach = ease(seg(p, 0, .17));
-    const dive = seg(p, .22, .51);
+    const approach = ease(seg(p, 0, .28));
+    const dive = seg(p, .36, .85);
     const scale = (1 + approach*.55) * Math.pow(38, dive*dive);
-    house.style.transform = `scale(${scale})`;
+    house.style.transform = `translate3d(0,${dive*4}%,0) scale(${scale})`;
 
-    // door swings open
-    const open = ease(seg(p, .12, .23));
-    door.style.transform = `perspective(200px) rotateY(${-open*82}deg)`;
+    // door swings open (2D fake perspective, works in every mobile browser)
+    const open = ease(seg(p, .2, .38));
+    door.style.transform = `scaleX(${Math.cos(open*1.35).toFixed(4)}) skewY(${(-open*9).toFixed(2)}deg)`;
     spill.style.opacity = (open*.9).toFixed(3);
 
     // ghost pops up from behind the roof, then flees
-    const up = ease(seg(p, .01, .07)), away = seg(p, .1, .15);
+    const up = ease(seg(p, .02, .12)), away = seg(p, .17, .25);
     ghost.style.opacity = (up * (1-away)).toFixed(3);
     ghost.style.transform = `translate(${away*120}%, ${(1-up)*60 - away*80}%)`;
 
     // knock knock
-    const k = seg(p, .07, .1) * (1 - seg(p, .15, .18));
+    const k = seg(p, .12, .17) * (1 - seg(p, .25, .3));
     knock.style.opacity = k.toFixed(3);
 
     // parallax layers
@@ -333,18 +367,36 @@ body{background:var(--void);color:var(--ink);font-family:var(--font-body);font-s
     jl.style.transform = `translateX(${-(approach*70 + dive*80)}%) scale(${1 + approach*.9})`;
     jr.style.transform = `translateX(${(approach*70 + dive*80)}%) scale(${1 + approach*.9})`;
 
-    const fade = 1 - seg(p, 0, .06);
+    const fade = 1 - seg(p, 0, .1);
     intro.style.opacity = fade.toFixed(3);
     intro.style.transform = `translateY(${-(1-fade)*20}px)`;
-    hint.style.opacity = (1 - seg(p, 0, .03)).toFixed(3);
+    hint.style.opacity = (1 - seg(p, 0, .05)).toFixed(3);
 
-    flash.style.opacity = ease(seg(p, .4, .49)).toFixed(3);
-    document.getElementById('dark').style.opacity = ease(seg(p, .5, .6)).toFixed(3);
+    flash.style.opacity = ease(seg(p, .66, .8)).toFixed(3);
+    dark.style.opacity = ease(seg(p, .8, .93)).toFixed(3);
+    // the room is already behind the stage: lift the stage away and the invitation is right there
+    const gone = seg(p, .94, .99);
+    stage.style.opacity = (1 - gone).toFixed(3);
+    stage.style.visibility = gone >= 1 ? 'hidden' : 'visible';
+    if (p > .9 && !entered) enter();
   }
-  function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(render); } }
+  function onScroll(){
+    readTarget();
+    if (reduce) { cur = target; render(cur); return; }
+    if (!running) { running = true; requestAnimationFrame(loop); }
+  }
   addEventListener('scroll', onScroll, {passive:true});
   addEventListener('resize', onScroll);
-  render();
+
+  // interior: welcome, candles, card and its rows rise into place one after another once you're through the door
+  const items = [...document.querySelectorAll('.welcome, .candles, .card, .fact, .costume, .countdown, .signoff')];
+  let entered = false;
+  function enter(){
+    entered = true;
+    items.forEach((el, i) => { el.style.transitionDelay = (i * .09) + 's'; el.classList.add('in'); });
+  }
+  if (!reduce) items.forEach(el => el.classList.add('reveal')); else entered = true;
+  readTarget(); cur = target; render(cur);
 
   // Countdown to 31 Oct 2026, 20:00 local
   const party = new Date(2026, 9, 31, 20, 0, 0);
@@ -366,4 +418,5 @@ body{background:var(--void);color:var(--ink);font-family:var(--font-body);font-s
 })();
 </script>
 
-</body></html>
+</body>
+</html>
